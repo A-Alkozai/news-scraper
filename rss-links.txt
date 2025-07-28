@@ -1,0 +1,15 @@
+World News:
+http://feeds.bbci.co.uk/news/world/rss.xml
+https://www1.cbn.com/rss-cbn-news-world.xml
+https://feeds.nbcnews.com/nbcnews/public/news
+https://www.cnbc.com/id/100727362/device/rss/rss.html
+
+UK News:
+http://feeds.bbci.co.uk/news/rss.xml
+http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml
+
+Tech News:
+http://feeds.bbci.co.uk/news/technology/rss.xml
+
+The Mirror:
+https://www.mirror.co.uk/?service=rss
