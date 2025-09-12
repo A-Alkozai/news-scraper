@@ -16,6 +16,7 @@ with connection.cursor() as cur:
     cur.execute("""
         CREATE TABLE IF NOT EXISTS articles (
             id SERIAL PRIMARY KEY,
+            source TEXT NOT NULL,
             title TEXT NOT NULL,
             description TEXT,
             link TEXT UNIQUE NOT NULL,
@@ -28,6 +29,6 @@ with connection.cursor() as cur:
         );
     """)
     connection.commit()
-
-connection.close()
+    connection.close()
+    
 print("Database initialised.")
