@@ -6,7 +6,6 @@ import requests
 import psycopg
 import os
 
-
 # Dictionary of News Sources
 NEWS_SOURCES = {
     "bbc": "BBC News",
@@ -16,7 +15,13 @@ NEWS_SOURCES = {
     "mirror": "The Mirror"
 }
 
-# Get a connection to the database
+# Words that are present in non-article news links
+IGNORED_LINKS = [
+    '/videos/', '/video/', '/iplayer/', '/sounds/', '/watch/', 
+    '/play/', '/700club/', '/shorts/', '/weather/'
+]
+
+# Returns a connection to the database
 def getConnection():
     return psycopg.connect(
         dbname=os.getenv("POSTGRES_DB"),
@@ -46,11 +51,20 @@ def getSource(feed):
     domain = tldextract.extract(url).domain
     return NEWS_SOURCES.get(domain)
 
+# Check link is a text article
+def checkIgnoredLinks(link):
+    for word in IGNORED_LINKS:
+        if word in link:
+            return True
+    return False
+
 # Reads each news entry in the RSS Feed
 def getEntries(feed):
     connection = getConnection()
     with connection.cursor() as cur:
         for entry in feed:
+            if checkIgnoredLinks(entry.link): # Skip non-article links
+                continue
             mediaURL = getMedia(entry)
             source = getSource(feed)
             cur.execute("""
